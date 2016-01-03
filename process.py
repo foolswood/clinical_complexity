@@ -4,11 +4,13 @@ from collections import namedtuple, Counter
 
 Child = namedtuple('child', ('respiratory', 'feeding', 'seizure', 'motor', 'bulbar', 'balofen', 'vi', 'shunt'))
 
+
 def score(child):
     return sum(child)
 
+
 def load_csv(year):
-    with open('{}.csv'.format(year)) as f:
+    with open('input/{}.csv'.format(year)) as f:
         lines = [l.strip().split(',') for l in f.readlines()]
     # Drop headings
     return lines[1:]
@@ -16,12 +18,14 @@ def load_csv(year):
 lines_2013 = load_csv(2013)
 lines_2015 = load_csv(2015)
 
+
 def highest_y(l):
     result = 0
     for i, s in enumerate(l):
         if s.lower().strip() == 'y':
             result = i + 1
     return result
+
 
 def y_to_1(s):
     if s.lower().strip() == 'y':
@@ -45,11 +49,13 @@ for child_line in lines_2013:
     assert child_id not in children_2013
     children_2013[child_id] = Child(resps, feeding, seizure, motor, bulbar, baclofen, vi, shunt)
 
+
 def int_or_empty(s):
     if s:
         return int(s)
     else:
         return 0
+
 
 def max_point(l):
     return max(map(int_or_empty, l))
@@ -135,24 +141,20 @@ assert len(correlated_child_data) == 55
 
 correlated_child_scores = {k: tuple(map(score, v)) for k, v in correlated_child_data.items()}
 
-def print_scores(score_pairs):
-    score_counts = Counter(score_pairs)
-    for (score_a, score_b), count in sorted(score_counts.items()):
-        print score_a, score_b, count
 
-#print_scores(correlated_child_scores.values())
+score_counts = Counter(correlated_child_scores.values())
+with open('intermediate/13_15_freq.csv', 'w') as f:
+    f.write('score_13,score_15,freq\n')
+    for (score_13, score_15), count in sorted(score_counts.items()):
+        f.write('{},{},{}\n'.format(score_13, score_15, count))
 
-scores_2015_c = {}
-for child_id, child_score in load_csv("2015_c"):
-    scores_2015_c[int(child_id)] = int(child_score)
+with open('intermediate/15_b.csv', 'w') as f:
+    f.write('child_id,b_score\n')
+    for id_15, (_, score_15) in correlated_child_scores.items():
+        f.write('{},{}\n'.format(id_15, score_15))
 
-assert len(scores_2015_c) == 17
-
-pairs_2015 = {}
-for id_2015, score_2015_c in scores_2015_c.items():
-    score_2015_b = score(children_2015[id_2015])
-    pairs_2015[id_2015] = score_2015_b, score_2015_c
-
-#print_scores(pairs_2015.values())
-for score_13, score_15 in pairs_2015.values():
-    print score_13 - score_15
+with open('intermediate/13_a.csv', 'w') as f:
+    f.write('child_id,a_score\n')
+    for id_15, (score_13, _) in correlated_child_scores.items():
+        # Storing with 2015 child_id to align with everything else
+        f.write('{},{}\n'.format(id_15, score_13))
