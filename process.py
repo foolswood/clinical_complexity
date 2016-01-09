@@ -150,8 +150,8 @@ with open('intermediate/13_15_freq.csv', 'w') as f:
 
 with open('intermediate/15_b.csv', 'w') as f:
     f.write('child_id,b_score\n')
-    for id_15, (_, score_15) in correlated_child_scores.items():
-        f.write('{},{}\n'.format(id_15, score_15))
+    for id_15, data_15 in children_2015.items():
+        f.write('{},{}\n'.format(id_15, score(data_15)))
 
 with open('intermediate/13_a.csv', 'w') as f:
     f.write('child_id,a_score\n')

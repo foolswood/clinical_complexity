@@ -44,7 +44,7 @@ hist(
     b_c_scores$b_score - b_c_scores$c_score,
     main="Score Difference (Observers B and C)",
     xlab="Score B - Score C",
-    breaks=seq(-2.5,3.5), xlim=c(-2,3), yaxp=c(0,3,3))
+    breaks=seq(-2.5,3.5), xlim=c(-2.5,3.5), yaxp=c(0,4,4))
 
 # Service usage
 
