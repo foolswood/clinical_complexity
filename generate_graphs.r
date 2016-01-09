@@ -23,7 +23,7 @@ hist(
     a_b_scores$a_score - a_b_scores$b_score,
     main="Score Difference (Observers A and B)",
     xlab="Score A - Score B",
-    breaks=seq(-2.5,5.5), xlim=c(-2,5))
+    breaks=seq(-2.5,5.5), xlim=c(-2.5,5.5), xaxp=c(-2,5,7))
 
 # Observer B/C comparison
 
