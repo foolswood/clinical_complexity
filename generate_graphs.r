@@ -1,6 +1,9 @@
+style_opts <- c(cex.main=1.6, cex.axis=1.3, cex.lab=1.4, bg='white')
+
 # Observer A/B comparison
 
 pdf("output/observers_a_b_scatter.pdf")
+par(style_opts)
 a_b_freq = read.csv("intermediate/13_15_freq.csv")
 tic_params = c(0, 14, 7)
 lim_params = c(-0.5, 14)
@@ -16,6 +19,7 @@ symbols(
 abline(0, 1, col="lightgray", lty=2)
 
 pdf("output/observers_a_b_diff_hist.pdf")
+par(style_opts)
 scores_a = read.csv('intermediate/13_a.csv')
 scores_b = read.csv("intermediate/15_b.csv")
 a_b_scores = merge(scores_a, scores_b)
@@ -28,6 +32,7 @@ hist(
 # Observer B/C comparison
 
 pdf("output/observers_b_c_scatter.pdf")
+par(style_opts)
 scores_c = read.csv("input/2015_c.csv")
 b_c_scores = merge(scores_b, scores_c)
 library(graphics)
@@ -36,10 +41,12 @@ sunflowerplot(
     main="Observers B and C",
     xlab="Observer B (score)", ylab="Observer C (score)",
     xlim=lim_params, ylim=lim_params,
-    xaxp=tic_params, yaxp=tic_params)
+    xaxp=tic_params, yaxp=tic_params,
+    seg.col="purple")
 abline(0, 1, col="lightgray", lty=2)
 
 pdf("output/observers_b_c_diff_hist.pdf")
+par(style_opts)
 hist(
     b_c_scores$b_score - b_c_scores$c_score,
     main="Score Difference (Observers B and C)",
@@ -49,6 +56,7 @@ hist(
 # Service usage
 
 pdf("output/service_usage.pdf")
+par(style_opts)
 sud = read.csv("input/service_use_data.csv")
 plot(
     sud$score, sud$contacts_q1 + sud$contacts_q2 + sud$contacts_q3,
@@ -59,9 +67,11 @@ plot(
 # Admissions
 
 pdf("output/admissions.pdf")
+par(style_opts)
 admissions = read.csv("input/admissions_2015.csv")
 admissions = merge(sud, admissions)
 sunflowerplot(
     admissions$score, admissions$total,
     main="Hospital Admissions",
-    xlab="Score (observer C)", ylab="Admissions")
+    xlab="Score (observer C)", ylab="Admissions",
+    seg.col="purple")
