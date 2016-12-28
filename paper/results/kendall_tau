@@ -1,0 +1,30 @@
+
+	Kendall's rank correlation tau
+
+data:  f$score and f$outpatient
+z = 2.0275, p-value = 0.04261
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.1501523 
+
+
+	Kendall's rank correlation tau
+
+data:  f$score and f$a_and_e
+z = 3.479, p-value = 0.0005032
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.2678597 
+
+
+	Kendall's rank correlation tau
+
+data:  f$score and f$beds
+z = 4.9724, p-value = 6.614e-07
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+      tau 
+0.3898275 
+
